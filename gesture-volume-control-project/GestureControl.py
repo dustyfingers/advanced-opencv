@@ -28,7 +28,7 @@ audio_device = AudioUtilities.GetSpeakers()
 interface = audio_device.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
 volume = cast(interface, POINTER(IAudioEndpointVolume))
 
-# volume range is how loud or quiet the system can ...obv
+# volume range is how loud or quiet the system can go ...obv
 # ~ -65 to 0 on my system
 vol_range = volume.GetVolumeRange()
 min_volume = vol_range[0]
@@ -71,7 +71,7 @@ while True:
         #     cv2.circle(frame, (center_x, center_y), 15, (0, 255, 0), cv2.FILLED)
 
 
-    # c_time is current time, p_time is past_time
+    # c_time is current time, p_time is past time
     c_time = time.time()
 
     # calculate frames per second
