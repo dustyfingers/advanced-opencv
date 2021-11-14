@@ -9,3 +9,4 @@ to activate the virtual env:
 to deactivate just run:
 deactivate
 
+to start a new virtual env in a project contained here (for me lol): navigate to new project dir && run --> virtualenv .  -p C:/Users/PC/AppData/Local/Programs/Python/Python36/python.exe
