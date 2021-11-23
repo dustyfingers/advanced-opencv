@@ -53,7 +53,7 @@ while True:
 
         # draw line and center circle
         cv2.line(frame, (thumb_x, thumb_y), (pointer_x, pointer_y), (255, 0, 255), 3)
-        cv2.circle(frame, (center_x, center_y), 15, (255, 0, 255), cv2.FILLED)
+        # cv2.circle(frame, (center_x, center_y), 15, (255, 0, 255), cv2.FILLED)
 
         # find length of line
         length = math.hypot(pointer_x - thumb_x, pointer_y - thumb_y)
@@ -80,4 +80,5 @@ while True:
     cv2.putText(frame, f'FPS: {str(int(fps))}', (40, 50), cv2.FONT_HERSHEY_PLAIN, 3, (255, 0, 0), 3)
 
     cv2.imshow("Image", handsFrame)
-    cv2.waitKey(1)
+    cv2.waitKey(41)
+    cv2.waitKey(41)
