@@ -27,6 +27,10 @@ while True:
     if results.multi_face_landmarks:
         for face_landmarks in results.multi_face_landmarks:
             mp_draw.draw_landmarks(img, face_landmarks, mp_facemesh.FACE_CONNECTIONS, draw_spec, draw_spec)
+            for id, lm in enumerate(face_landmarks.landmark):
+                ih, iw, ic = img.shape
+                x, y = int(lm.x*iw), int(lm.y*ih)
+
 
     # c_time is current time, p_time is past time
     c_time = time.time()
