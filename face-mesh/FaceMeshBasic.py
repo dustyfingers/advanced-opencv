@@ -26,7 +26,7 @@ while True:
 
     if results.multi_face_landmarks:
         for face_landmarks in results.multi_face_landmarks:
-            mp_draw.draw_landmarks(img, face_landmarks, mp_facemesh.FACE_CONNECTIONS, draw_spec, draw_spec)
+            mp_draw.draw_landmarks(img, face_landmarks, mp_facemesh.FACEMESH_CONTOURS, draw_spec, draw_spec)
 
     # c_time is current time, p_time is past time
     c_time = time.time()
