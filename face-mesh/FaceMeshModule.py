@@ -17,7 +17,7 @@ class FaceMeshDetector():
 
         # mp face utils
         self.mp_facemesh = mp.solutions.face_mesh
-        self.face_mesh = self.mp_facemesh.FaceMesh(self.static_mode, self.max_faces, self.min_detect_conf, self.min_track_conf)
+        self.face_mesh = self.mp_facemesh.FaceMesh(static_image_mode=self.static_mode, max_num_faces=self.max_faces, min_detection_confidence=self.min_detect_conf, min_tracking_confidence=self.min_track_conf)
         
     
     def find_face_mesh(self, img, draw=True):
@@ -26,10 +26,36 @@ class FaceMeshDetector():
 
         # use mediapipe to find face landmarks
         self.results = self.face_mesh.process(imgRGB)
+        
+        faces = []
 
         if self.results.multi_face_landmarks:
+            
             for face_landmarks in self.results.multi_face_landmarks:
-                self.mp_draw.draw_landmarks(img, face_landmarks, self.mp_facemesh.FACEMESH_CONTOURS, self.draw_spec, self.draw_spec)   
+                
+                # draw mesh
+                if (draw):
+                    self.mp_draw.draw_landmarks(img, face_landmarks, self.mp_facemesh.FACEMESH_CONTOURS, self.draw_spec, self.draw_spec)
+                
+                face = []
+                
+                # find face position in image
+                for id, lm in enumerate(face_landmarks.landmark):
+                    
+                    # image height, width
+                    ih, iw, ic = img.shape
+                    
+                    # x and y of center of detected face
+                    x, y = int(lm.x*iw), int(lm.y*ih)
+                    
+                            
+                    cv2.putText(img, str(id), (x, y), cv2.FONT_HERSHEY_PLAIN, 0.5, (255, 0, 0), 1)
+
+                    face.append([x,y])
+                    
+                faces.append(face)
+                
+        return img, faces
 
 
 def main():
@@ -40,10 +66,20 @@ def main():
     # initial past time
     p_time = 0
     
+    # init detector
+    detector = FaceMeshDetector()
+    
     while True:
         
         # capture input each frame
         success, img = cap.read()
+        
+        # process image and return modified image and faces array
+        img, faces = detector.find_face_mesh(img)
+        
+        if len(faces) != 0:
+            pass
+            # print(len(faces))
         
         # c_time is current time, p_time is past time
         c_time = time.time()
